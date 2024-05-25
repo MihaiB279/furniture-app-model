@@ -1,5 +1,5 @@
 import base64
-
+import logging
 from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
@@ -76,7 +76,7 @@ def construct_furniture(furniture_string):
 def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, decoded_key, algorithms=[ALGORITHM])
-        return payload  # returning the whole payload for demonstration
+        return payload
     except PyJWTError as e:
         raise HTTPException(status_code=403, detail="Invalid token")
 
@@ -90,8 +90,10 @@ async def optimize_room(room_request: RoomRequest, user_payload: dict = Depends(
             result_furniture.append(construct_furniture(str(item)))
         return result_furniture
     except ValueError as e:
+        logging.error(f"Failed to start the application: {e}", exc_info=True)
         raise HTTPException(status_code=422, detail=str(e))
     except Exception as e:
+        logging.error(f"Failed to start the application: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 

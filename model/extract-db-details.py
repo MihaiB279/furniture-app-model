@@ -5,10 +5,10 @@ from psycopg2 import sql
 
 from utils import get_list
 
-dbname = 'sitedb'
-user = 'postgres'
-password = 'password1234'
-host = 'localhost'
+dbname = 'postgres'
+user = 'furniture_user'
+password = 'qL\'zU(;eO319G;^P'
+host = 'furniture-db.postgres.database.azure.com'
 port = '5432'
 
 table_name = 'furniture'

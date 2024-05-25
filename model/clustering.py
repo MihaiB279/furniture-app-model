@@ -12,10 +12,10 @@ def create_empty_string(string):
 
 
 def get_details_for_type(item):
-    dbname = 'sitedb'
-    user = 'postgres'
-    password = 'password1234'
-    host = 'localhost'
+    dbname = 'postgres'
+    user = 'furniture_user'
+    password = 'qL\'zU(;eO319G;^P'
+    host = 'furniture-db.postgres.database.azure.com'
     port = '5432'
 
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
@@ -27,10 +27,10 @@ def get_details_for_type(item):
 
 
 def get_from_db_item(item):
-    dbname = 'sitedb'
-    user = 'postgres'
-    password = 'password1234'
-    host = 'localhost'
+    dbname = 'postgres'
+    user = 'furniture_user'
+    password = 'qL\'zU(;eO319G;^P'
+    host = 'furniture-db.postgres.database.azure.com'
     port = '5432'
 
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
@@ -80,7 +80,7 @@ def cluster_item(item, checks):
                             distance_matrix[i, j] = Levenshtein.distance(create_empty_string("ZZZZ"),
                                                                          create_empty_string("ZZZZ"))
 
-                clustering = AgglomerativeClustering(n_clusters=None, affinity='precomputed', linkage='complete',
+                clustering = AgglomerativeClustering(n_clusters=None, metric='precomputed', linkage='complete',
                                                      distance_threshold=1)
                 cluster_labels = clustering.fit_predict(distance_matrix)
                 clusters = {}

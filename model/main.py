@@ -26,9 +26,7 @@ def find_furniture(furniture, already_generated, budget, population_size=300, no
     last_gens = []
 
     for generation in range(genetic_parameters["noGen"]):
-        # ga.oneGeneration()
         ga.oneGenerationElitism()
-        # ga.oneGenerationSteadyState()
         best_chromosome = ga.bestChromosome()
         last_gens = ga.population
         if best_chromosome not in bests:
