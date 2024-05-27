@@ -1,16 +1,19 @@
-import sys
+import re
 
 
 def get_list(string):
-    string_list = eval(string)
-    details_dict = {}
+    input_string = string.strip("[]")
+    input_list = re.split(r"',\s*'", input_string)
 
-    for item in string_list:
-        parts = item.split(':')
-        if len(parts) == 2:
-            details_dict[parts[0]] = parts[1]
+    result_dict = {}
+    for item in input_list:
+        try:
+            key, value = item.strip("'").split(':', 1)
+            result_dict[key.strip()] = value.strip()
+        except ValueError as ex:
+            print(ex)
 
-    return details_dict
+    return result_dict
 
 
 def check_all_no_preference(data):
@@ -23,13 +26,13 @@ def get_index_off_generated(generated, available):
     list_indexes = []
     for single_list in generated:
         single_list_index = []
-        for furniture_generated in single_list:
-            if furniture_generated.furnitureType in available:
-                for index, furniture_available in enumerate(available[furniture_generated.furnitureType]):
-                    if furniture_available['Name'][1:] == furniture_generated.name and \
-                            furniture_available['Company'][1:] == furniture_generated.company:
-                        single_list_index.append(index)
-                        break
+        for index_gen, furniture_generated in enumerate(single_list):
+            for index, furniture_available in enumerate(available[index_gen]):
+                if furniture_available['Name'] == furniture_generated.name and \
+                        furniture_available['Company'] == furniture_generated.company:
+                    single_list_index.append(index)
+                    break
         if len(single_list_index) == len(single_list):
             list_indexes.append(single_list_index)
     return list_indexes
+

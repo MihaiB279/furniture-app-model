@@ -60,9 +60,7 @@ class MyChromosome:
 
     def __init_representation(self):
         for i in range(len(self.__problem_parameters["furniture"])):
-            self.__representation.append(randint(0, len(self.__problem_parameters["furniture"][
-                                                            list(self.__problem_parameters["furniture"].keys())[
-                                                                i]]) - 1))
+            self.__representation.append(randint(0, len(self.__problem_parameters["furniture"][i]) - 1))
         if self.__problem_parameters["generated"] is not None and self.__representation in self.__problem_parameters[
             "generated"]:
             self.__representation = []

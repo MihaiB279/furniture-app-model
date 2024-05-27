@@ -3,12 +3,12 @@ import uuid
 import psycopg2
 from psycopg2 import sql
 
-from utils import get_list
+from model.utils import get_list
 
-dbname = 'postgres'
-user = 'furniture_user'
-password = 'qL\'zU(;eO319G;^P'
-host = 'furniture-db.postgres.database.azure.com'
+dbname = 'sitedb'
+user = 'postgres'
+password = 'password1234'
+host = 'localhost'
 port = '5432'
 
 table_name = 'furniture'
@@ -28,7 +28,7 @@ for row in cur.fetchall():
     furniture_details = row[1]
     furniture_details = get_list(furniture_details)
     for key, item in furniture_details.items():
-        if 'W x H x D' not in key:
+        if 'W x H x D' not in key and 'Width x Height' not in key:
             if key not in furniture[furniture_type].keys():
                 furniture[furniture_type][key] = [item]
             elif item not in furniture[furniture_type][key]:

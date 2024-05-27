@@ -1,5 +1,3 @@
-import sys
-
 import Levenshtein
 import psycopg2
 from sklearn.cluster import AgglomerativeClustering
@@ -12,10 +10,10 @@ def create_empty_string(string):
 
 
 def get_details_for_type(item):
-    dbname = 'postgres'
-    user = 'furniture_user'
-    password = 'qL\'zU(;eO319G;^P'
-    host = 'furniture-db.postgres.database.azure.com'
+    dbname = 'sitedb'
+    user = 'postgres'
+    password = 'password1234'
+    host = 'localhost'
     port = '5432'
 
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
@@ -27,10 +25,10 @@ def get_details_for_type(item):
 
 
 def get_from_db_item(item):
-    dbname = 'postgres'
-    user = 'furniture_user'
-    password = 'qL\'zU(;eO319G;^P'
-    host = 'furniture-db.postgres.database.azure.com'
+    dbname = 'sitedb'
+    user = 'postgres'
+    password = 'password1234'
+    host = 'localhost'
     port = '5432'
 
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
@@ -47,11 +45,11 @@ def cluster_item(item, checks):
             if key in details_keys:
                 details_keys.remove(key)
     all_items = get_from_db_item(item)
-    companies = [row[3] for row in all_items]
+    companies = [row[1] for row in all_items]
     details = [row[2] for row in all_items]
-    ftype = [row[4] for row in all_items]
-    name = [row[5] for row in all_items]
-    prices = [row[0] for row in all_items]
+    ftype = [row[3] for row in all_items]
+    name = [row[4] for row in all_items]
+    prices = [row[5] for row in all_items]
     details_prices = []
     for i in range(len(details)):
         details_prices.append(

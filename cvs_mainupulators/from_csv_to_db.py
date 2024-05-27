@@ -5,10 +5,10 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
-dbname = 'postgres'
-user = 'furniture_user'
-password = 'qL\'zU(;eO319G;^P'
-host = 'furniture-db.postgres.database.azure.com'
+dbname = 'sitedb'
+user = 'postgres'
+password = 'password1234'
+host = 'localhost'
 port = '5432'
 
 table_name = 'furniture_table'
@@ -17,7 +17,7 @@ cur = conn.cursor()
 
 
 def update_db():
-    path = "C:/Users/MihaiBucur/Desktop/Licenta/bachelor_project/backend/src/main/resources/cvs/*.csv"
+    path = "C:/Users/MihaiBucur/Desktop/Licenta/furniture-app-model/cvs/*.csv"
     for file in glob.glob(path):
         csv_input = pd.read_csv(file)
         for index, row in csv_input.iterrows():
@@ -32,8 +32,8 @@ def update_db():
                 furniture_type = "KITCHEN"
             elif row['furniture_type'] == 'Recliner':
                 furniture_type = "RECLINER"
-            elif row['furniture_type'] == 'Showcase':
-                furniture_type = "SHOWCASE"
+            elif row['furniture_type'] == 'Shoerack':
+                furniture_type = "SHOE_RACK"
             elif row['furniture_type'] == 'Sofa-bed':
                 furniture_type = "SOFA_BED"
             elif row['furniture_type'] == 'TV unit':
