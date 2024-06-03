@@ -1,4 +1,3 @@
-import sys
 from random import randint
 
 
@@ -16,6 +15,26 @@ class GA:
     def param(self):
         return self.__param
 
+    def one_generation_elitism(self):
+        new_pop = [self.best_chromosome()]
+        for _ in range(self.__param['popSize'] - 1):
+            p1 = self.__population[self.selection()]
+            p2 = self.__population[self.selection()]
+            off = p1.crossover(p2)
+            off.mutation()
+            while self.__problem_parameters["generated"] is not None and off.representation in \
+                    self.__problem_parameters["generated"]:
+                off = p1.crossover(p2)
+                off.mutation()
+            if off.fitness > p1.fitness and off.fitness > p2.fitness:
+                new_pop.append(off)
+            elif p1.fitness > p2.fitness:
+                new_pop.append(p1)
+            else:
+                new_pop.append(p2)
+        self.__population = new_pop
+        self.evaluation()
+
     def initialisation(self):
         for _ in range(0, self.__param['popSize']):
             c = self.__param["chromosome"](self.__problem_parameters)
@@ -26,17 +45,10 @@ class GA:
             c.fitness = self.__param['function'](self.__problem_parameters["furniture"], c.representation,
                                                  self.__problem_parameters["budget"])
 
-    def bestChromosome(self):
+    def best_chromosome(self):
         best = self.__population[0]
         for c in self.__population:
             if c.fitness < best.fitness:
-                best = c
-        return best
-
-    def worstChromosome(self):
-        best = self.__population[0]
-        for c in self.__population:
-            if c.fitness > best.fitness:
                 best = c
         return best
 
@@ -47,40 +59,3 @@ class GA:
             return pos1
         else:
             return pos2
-
-    def oneGeneration(self):
-        newPop = []
-        for _ in range(self.__param['popSize']):
-            p1 = self.__population[self.selection()]
-            p2 = self.__population[self.selection()]
-            off = p1.crossover(p2)
-            off.mutation()
-            newPop.append(off)
-        self.__population = newPop
-        self.evaluation()
-
-    def oneGenerationElitism(self):
-        new_pop = [self.bestChromosome()]
-        for _ in range(self.__param['popSize'] - 1):
-            p1 = self.__population[self.selection()]
-            p2 = self.__population[self.selection()]
-            off = p1.crossover(p2)
-            off.mutation()
-            while self.__problem_parameters["generated"] is not None and off.representation in self.__problem_parameters["generated"]:
-                off = p1.crossover(p2)
-                off.mutation()
-            new_pop.append(off)
-        self.__population = new_pop
-        self.evaluation()
-
-    def one_generation_steady_state(self):
-        for _ in range(self.__param['popSize']):
-            p1 = self.__population[self.selection()]
-            p2 = self.__population[self.selection()]
-            off = p1.crossover(p2)
-            off.mutation()
-            off.fitness = self.__param['function'](self.__problem_parameters["furniture"], off.representation,
-                                                   self.__problem_parameters["budget"])
-            worst = self.worstChromosome()
-            if off.fitness < worst.fitness:
-                worst = off

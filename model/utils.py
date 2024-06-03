@@ -7,11 +7,8 @@ def get_list(string):
 
     result_dict = {}
     for item in input_list:
-        try:
-            key, value = item.strip("'").split(':', 1)
-            result_dict[key.strip()] = value.strip()
-        except ValueError as ex:
-            print(ex)
+        key, value = item.strip("'").split(':', 1)
+        result_dict[key.strip()] = value.strip()
 
     return result_dict
 

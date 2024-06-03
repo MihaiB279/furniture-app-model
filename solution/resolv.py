@@ -79,8 +79,8 @@ class Resolver:
         last_gens = []
 
         for generation in range(self.__ga.param["noGen"]):
-            self.__ga.oneGenerationElitism()
-            best_chromosome = self.__ga.bestChromosome()
+            self.__ga.one_generation_elitism()
+            best_chromosome = self.__ga.best_chromosome()
             last_gens = self.__ga.population
             if best_chromosome not in bests:
                 bests.append(best_chromosome)
