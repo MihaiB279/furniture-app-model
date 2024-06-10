@@ -5,8 +5,8 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 from typing import List
 
-from requests.classes_for_requestst import Furniture, RoomRequest
-from solution.resolv import Resolver
+from classes_for_requests import Furniture, RoomRequest
+from resolv import Resolver
 import jwt
 from jwt import PyJWTError
 

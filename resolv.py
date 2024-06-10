@@ -3,7 +3,7 @@ from model.clustering import cluster_item
 from model.genetic_algorithm import GA
 from model.utils import get_index_off_generated, get_list, check_all_no_preference
 from model.utils_ga import evaluation
-from requests.classes_for_requestst import Furniture
+from classes_for_requests import Furniture
 
 
 class Resolver:

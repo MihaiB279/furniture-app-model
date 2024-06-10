@@ -81,8 +81,8 @@ def delete_bed(csv):
 
 
 def repair_details(name, csv):
-    # duplicated_rows = delete_duplicates(csv)
-    # csv.drop(duplicated_rows, inplace=True)
+    duplicated_rows = delete_duplicates(csv)
+    csv.drop(duplicated_rows, inplace=True)
 
     filtered_list = None
     if name == 'bar':
@@ -108,15 +108,15 @@ def repair_details(name, csv):
 
 def main():
     companies = ['Dedeman', 'Jysk', 'Ikea', 'Casa Rusu', 'Mobila Casa', 'Mob Expert', 'Casa Magica', 'FurnitureForYou']
-    path = "C:/Users/MihaiBucur/Desktop/Licenta/furniture-app-model/cvs/*.csv"
+    path = "cvs/*.csv"
     for file in glob.glob(path):
         csv_input = pd.read_csv(file)
         csv_input['company'] = np.random.choice(companies, size=len(csv_input), replace=True)
         reg_str = "<li class=\"_21Ahn-\">(.*?)</li>"
         csv_input['product_details'] = csv_input['product_details'].apply(lambda x: re.findall(reg_str, x))
         repair_details(file.split('\\')[1].split('.csv')[0], csv_input)
-        # csv_input['discounted_price'] = csv_input['discounted_price'].apply(lambda x: change_currency(x))
-        # csv_input['original_price'] = csv_input['original_price'].apply(lambda x: change_currency(x[1:]))
+        csv_input['discounted_price'] = csv_input['discounted_price'].apply(lambda x: change_currency(x))
+        csv_input['original_price'] = csv_input['original_price'].apply(lambda x: change_currency(x[1:]))
         csv_input.to_csv(file, index=False)
 
 

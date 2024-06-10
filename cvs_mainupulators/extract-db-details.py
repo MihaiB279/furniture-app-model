@@ -5,17 +5,17 @@ from psycopg2 import sql
 
 from model.utils import get_list
 
-dbname = 'sitedb'
-user = 'postgres'
-password = 'password1234'
-host = 'localhost'
+dbname = 'postgres'
+user = 'furniture_user'
+password = 'Rg561!8jMPFLg~mn'
+host = 'app-furniture-db.postgres.database.azure.com'
 port = '5432'
+
 
 table_name = 'furniture'
 conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
 cur = conn.cursor()
 
-# Query the table for rows matching the given name
 query = f"SELECT furniture_type, details FROM furniture_table"
 cur.execute(query)
 

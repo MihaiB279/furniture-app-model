@@ -5,10 +5,10 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
-dbname = 'sitedb'
-user = 'postgres'
-password = 'password1234'
-host = 'localhost'
+dbname = 'postgres'
+user = 'furniture_user'
+password = 'Rg561!8jMPFLg~mn'
+host = 'app-furniture-db.postgres.database.azure.com'
 port = '5432'
 
 table_name = 'furniture_table'
@@ -17,7 +17,7 @@ cur = conn.cursor()
 
 
 def update_db():
-    path = "C:/Users/MihaiBucur/Desktop/Licenta/furniture-app-model/cvs/*.csv"
+    path = "cvs/*.csv"
     for file in glob.glob(path):
         csv_input = pd.read_csv(file)
         for index, row in csv_input.iterrows():
